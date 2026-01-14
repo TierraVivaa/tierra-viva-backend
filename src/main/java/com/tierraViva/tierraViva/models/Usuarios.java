@@ -14,7 +14,7 @@ public class Usuarios {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_usuarios")
-    private Integer idUsuarios;
+    private Long idUsuarios;
 
     private String nombre;
     private String usuario;
@@ -35,12 +35,11 @@ public class Usuarios {
         this.contrasena = contrasena;
     }
 
-
-    public Integer getIdUsuarios() {
+    public Long getIdUsuarios() {
         return idUsuarios;
     }
 
-    public void setIdUsuarios(Integer idUsuarios) {
+    public void setIdUsuarios(Long idUsuarios) {
         this.idUsuarios = idUsuarios;
     }
 
