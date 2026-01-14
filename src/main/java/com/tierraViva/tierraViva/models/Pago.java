@@ -1,9 +1,10 @@
 package com.tierraViva.tierraViva.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "pagos")
@@ -13,19 +14,25 @@ public class Pago {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_pago;
 
-    // Foreign key
-    private Long id_carrito;
+    @OneToOne
+    @JoinColumn(name = "carrito_id", unique = true)
+    @JsonBackReference // Evita bucles
+    private Carrito carrito;
 
+    @Column(length = 30)
     private String metodoPago;
-    private Date fechaPago;
+
+    private LocalDate fechaPago;
+
+    @Column(name = "monto", precision = 10, scale = 2)
     private BigDecimal monto;
 
     public Pago() {
     }
 
-    public Pago(Long id_pago, Long id_carrito, String metodoPago, Date fechaPago, BigDecimal monto) {
+    public Pago(Long id_pago, Carrito carrito, String metodoPago, LocalDate fechaPago, BigDecimal monto) {
         this.id_pago = id_pago;
-        this.id_carrito = id_carrito;
+        this.carrito = carrito;
         this.metodoPago = metodoPago;
         this.fechaPago = fechaPago;
         this.monto = monto;
@@ -39,6 +46,14 @@ public class Pago {
         this.id_pago = id_pago;
     }
 
+    public Carrito getCarrito() {
+        return carrito;
+    }
+
+    public void setCarrito(Carrito carrito) {
+        this.carrito = carrito;
+    }
+
     public String getMetodoPago() {
         return metodoPago;
     }
@@ -47,11 +62,11 @@ public class Pago {
         this.metodoPago = metodoPago;
     }
 
-    public Date getFechaPago() {
+    public LocalDate getFechaPago() {
         return fechaPago;
     }
 
-    public void setFechaPago(Date fechaPago) {
+    public void setFechaPago(LocalDate fechaPago) {
         this.fechaPago = fechaPago;
     }
 
