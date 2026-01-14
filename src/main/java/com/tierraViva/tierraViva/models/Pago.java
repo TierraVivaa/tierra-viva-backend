@@ -12,7 +12,7 @@ public class Pago {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_pago;
+    private Long idPago;
 
     @OneToOne
     @JoinColumn(name = "carrito_id", unique = true)
@@ -30,20 +30,20 @@ public class Pago {
     public Pago() {
     }
 
-    public Pago(Long id_pago, Carrito carrito, String metodoPago, LocalDate fechaPago, BigDecimal monto) {
-        this.id_pago = id_pago;
+    public Pago(Long idPago, Carrito carrito, String metodoPago, LocalDate fechaPago, BigDecimal monto) {
+        this.idPago = idPago;
         this.carrito = carrito;
         this.metodoPago = metodoPago;
         this.fechaPago = fechaPago;
         this.monto = monto;
     }
 
-    public Long getId_pago() {
-        return id_pago;
+    public Long getIdPago() {
+        return idPago;
     }
 
-    public void setId_pago(Long id_pago) {
-        this.id_pago = id_pago;
+    public void setIdPago(Long idPago) {
+        this.idPago = idPago;
     }
 
     public Carrito getCarrito() {

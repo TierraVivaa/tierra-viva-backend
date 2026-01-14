@@ -1,7 +1,7 @@
 package com.tierraViva.tierraViva.repositories;
 
-import com.tierraViva.tierraViva.models.Usuarios;
+import com.tierraViva.tierraViva.models.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UsuariosRepository extends JpaRepository<Usuarios, Long> {
+public interface UsuariosRepository extends JpaRepository<Usuario, Long> {
 }

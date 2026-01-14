@@ -33,7 +33,7 @@ public class Producto {
     @Column(length = 50)
     private String imagen;
 
-    @Column(name = "id_categoria")
+    @Column(name = "categoria_id")
     private Long idCategoria;
 
     public Producto() {

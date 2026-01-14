@@ -17,18 +17,18 @@ public class Carrito {
 
     private BigDecimal precioTotal;
 
-    private LocalDateTime fecha;
+    private LocalDateTime fechaPedido;
 
     // Constructor vacío
     public Carrito() {
     }
 
     // Constructor con parámetros
-    public Carrito(Long idCarrito, Long idUsuario, BigDecimal precioTotal, LocalDateTime fecha) {
+    public Carrito(Long idCarrito, Long idUsuario, BigDecimal precioTotal, LocalDateTime fechaPedido) {
         this.idCarrito = idCarrito;
         this.idUsuario = idUsuario;
         this.precioTotal = precioTotal;
-        this.fecha = fecha;
+        this.fechaPedido = fechaPedido;
     }
 
     // Getters y Setters
@@ -56,11 +56,11 @@ public class Carrito {
         this.precioTotal = precioTotal;
     }
 
-    public LocalDateTime getFecha() {
-        return fecha;
+    public LocalDateTime getFechaPedido() {
+        return fechaPedido;
     }
 
-    public void setFecha(LocalDateTime fecha) {
-        this.fecha = fecha;
+    public void setFechaPedido(LocalDateTime fechaPedido) {
+        this.fechaPedido = fechaPedido;
     }
 }

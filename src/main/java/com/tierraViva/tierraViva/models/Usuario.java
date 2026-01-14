@@ -9,11 +9,10 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "usuarios")
-public class Usuarios {
+public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_usuarios")
     private Long idUsuarios;
 
     private String nombre;
@@ -24,10 +23,10 @@ public class Usuarios {
     @Column(name = "contraseña")
     private String contrasena;
 
-    public Usuarios() {
+    public Usuario() {
     }
 
-    public Usuarios(String nombre, String usuario, String email, Long numeroCelular, String contrasena) {
+    public Usuario(String nombre, String usuario, String email, Long numeroCelular, String contrasena) {
         this.nombre = nombre;
         this.usuario = usuario;
         this.email = email;
