@@ -30,6 +30,17 @@ public class ProductoController {
 
     @PostMapping("/productos")
     public Producto crearProducto(@RequestBody Producto producto) {
+
+        /*{
+            "nombre": "platano",
+                "descripcion": "platano maduro muy rico",
+                "fechaVencimiento": "2012-04-23",
+                "precioUnitario" : "234.2",
+                "unidadDePeso" : "gramos",
+                "stock" : 2,
+                "imagen" : "https://imageneseonline.com/platano"
+        }*/
+
         return productoService.crearProducto(producto);
     }
 
