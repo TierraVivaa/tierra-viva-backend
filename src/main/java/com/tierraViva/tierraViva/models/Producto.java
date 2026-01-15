@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name="producto")
@@ -33,12 +34,10 @@ public class Producto {
     @Column(length = 50)
     private String imagen;
 
-    @Column(name = "categoria_id")
-    private Long idCategoria;
-
     @ManyToOne
-    @JoinColumn(name = "id_categoria")
+    @JoinColumn(name = "categoria_id")
     private Categoria categoria;
+
     @OneToMany(mappedBy = "producto")
     private List<DetallePedido> detalles;
 
@@ -47,7 +46,7 @@ public class Producto {
 
     }
 
-    public Producto(Long idProducto, String nombre, String descripcion, LocalDate fechaVencimiento, BigDecimal precioUnitario, String unidadDePeso, Integer stock, String imagen, Long idCategoria) {
+    public Producto(Long idProducto, String nombre, String descripcion, LocalDate fechaVencimiento, BigDecimal precioUnitario, String unidadDePeso, Integer stock, String imagen, Categoria categoria, List<DetallePedido> detalles) {
         this.idProducto = idProducto;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -56,9 +55,9 @@ public class Producto {
         this.unidadDePeso = unidadDePeso;
         this.stock = stock;
         this.imagen = imagen;
-        this.idCategoria = idCategoria;
+        this.categoria = categoria;
+        this.detalles = detalles;
     }
-
 
     public Integer getStock() {
         return stock;
@@ -76,12 +75,20 @@ public class Producto {
         this.imagen = imagen;
     }
 
-    public Long getIdCategoria() {
-        return idCategoria;
+    public Categoria getCategoria() {
+        return categoria;
     }
 
-    public void setIdCategoria(Long idCategoria) {
-        this.idCategoria = idCategoria;
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
+    public List<DetallePedido> getDetalles() {
+        return detalles;
+    }
+
+    public void setDetalles(List<DetallePedido> detalles) {
+        this.detalles = detalles;
     }
 
     public String getUnidadDePeso() {

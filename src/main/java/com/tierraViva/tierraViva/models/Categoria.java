@@ -2,8 +2,10 @@ package com.tierraViva.tierraViva.models;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
-@Table(name = "categoria")
+@Table(name = "categorias")
 public class Categoria {
 
     @Id
@@ -19,8 +21,22 @@ public class Categoria {
     @OneToMany(mappedBy = "categoria")
     private List<Producto> productos;
 
-
     public Categoria() {
+    }
+
+    public Categoria(int idCategoria, String nombre, String descripcion, List<Producto> productos) {
+        this.idCategoria = idCategoria;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.productos = productos;
+    }
+
+    public List<Producto> getProductos() {
+        return productos;
+    }
+
+    public void setProductos(List<Producto> productos) {
+        this.productos = productos;
     }
 
     public int getIdCategoria() {

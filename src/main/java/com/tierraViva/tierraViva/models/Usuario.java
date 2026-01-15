@@ -1,11 +1,11 @@
 package com.tierraViva.tierraViva.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+
+import java.util.List;
 
 @Entity
 @Table(name = "usuarios")
@@ -15,23 +15,45 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idUsuarios;
 
+    @Column(length = 50, nullable = false)
     private String nombre;
+
+    @Column(length = 50, nullable = false)
     private String usuario;
+
+    @Email
+    @Column(length = 50, nullable = false)
     private String email;
+
     private Long numeroCelular;
 
+    @NotBlank
     @Column(name = "contraseña")
     private String contrasena;
+
+    @OneToMany(mappedBy = "usuario_id", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference // Evita bucles
+    private List<Carrito> carrito;
 
     public Usuario() {
     }
 
-    public Usuario(String nombre, String usuario, String email, Long numeroCelular, String contrasena) {
+    public Usuario(Long idUsuarios, String nombre, String usuario, String email, Long numeroCelular, String contrasena, List<Carrito> carrito) {
+        this.idUsuarios = idUsuarios;
         this.nombre = nombre;
         this.usuario = usuario;
         this.email = email;
         this.numeroCelular = numeroCelular;
         this.contrasena = contrasena;
+        this.carrito = carrito;
+    }
+
+    public List<Carrito> getCarrito() {
+        return carrito;
+    }
+
+    public void setCarrito(List<Carrito> carrito) {
+        this.carrito = carrito;
     }
 
     public Long getIdUsuarios() {

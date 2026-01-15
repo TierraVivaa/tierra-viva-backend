@@ -11,20 +11,40 @@ public class DetallePedido {
     private int idDetallePedido;
 
     @Column(nullable = false)
-    private int idProducto;
-
-    @Column(nullable = false)
     private int cantidad;
 
     @ManyToOne
-    @JoinColumn(name = "id_carrito")
+    @JoinColumn(name = "carrito_id")
     private Carrito carrito;
+
     @ManyToOne
-    @JoinColumn(name = "id_producto")
+    @JoinColumn(name = "producto_id")
     private Producto producto;
 
-
     public DetallePedido() {
+    }
+
+    public DetallePedido(int idDetallePedido, int cantidad, Carrito carrito, Producto producto) {
+        this.idDetallePedido = idDetallePedido;
+        this.cantidad = cantidad;
+        this.carrito = carrito;
+        this.producto = producto;
+    }
+
+    public Carrito getCarrito() {
+        return carrito;
+    }
+
+    public void setCarrito(Carrito carrito) {
+        this.carrito = carrito;
+    }
+
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
     }
 
     public int getIdDetallePedido() {
@@ -33,14 +53,6 @@ public class DetallePedido {
 
     public void setIdDetallePedido(int idDetallePedido) {
         this.idDetallePedido = idDetallePedido;
-    }
-
-    public int getIdProducto() {
-        return idProducto;
-    }
-
-    public void setIdProducto(int idProducto) {
-        this.idProducto = idProducto;
     }
 
     public int getCantidad() {

@@ -1,9 +1,12 @@
 package com.tierraViva.tierraViva.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "carritos")
@@ -13,24 +16,34 @@ public class Carrito {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idCarrito;
 
-    private Long idUsuario;
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    @JsonBackReference // Evita bucles
+    private Usuario usuario_id;
 
+    @OneToOne
+    @JoinColumn(name = "pago_id", unique = true)
+    @JsonBackReference // Evita bucles
+    private Pago pago_id;
+
+    @OneToMany(mappedBy = "carrito")
+    private List<DetallePedido> detallesPedido;
+
+    @Column(name = "precioTotal", precision = 10, scale = 2)
     private BigDecimal precioTotal;
 
     private LocalDateTime fechaPedido;
-
-    @OneToMany(mappedBy = "carrito")
-    private List<DetallePedido> detalles;
-
 
     // Constructor vacío
     public Carrito() {
     }
 
     // Constructor con parámetros
-    public Carrito(Long idCarrito, Long idUsuario, BigDecimal precioTotal, LocalDateTime fechaPedido) {
+    public Carrito(Long idCarrito, Usuario usuario_id, Pago pago_id, List<DetallePedido> detallesPedido, BigDecimal precioTotal, LocalDateTime fechaPedido) {
         this.idCarrito = idCarrito;
-        this.idUsuario = idUsuario;
+        this.usuario_id = usuario_id;
+        this.pago_id = pago_id;
+        this.detallesPedido = detallesPedido;
         this.precioTotal = precioTotal;
         this.fechaPedido = fechaPedido;
     }
@@ -40,16 +53,40 @@ public class Carrito {
         return idCarrito;
     }
 
+    public Usuario getUsuario_id() {
+        return usuario_id;
+    }
+
+    public void setUsuario_id(Usuario usuario_id) {
+        this.usuario_id = usuario_id;
+    }
+
+    public Pago getPago_id() {
+        return pago_id;
+    }
+
+    public void setPago_id(Pago pago_id) {
+        this.pago_id = pago_id;
+    }
+
+    public List<DetallePedido> getDetallesPedido() {
+        return detallesPedido;
+    }
+
+    public void setDetallesPedido(List<DetallePedido> detallesPedido) {
+        this.detallesPedido = detallesPedido;
+    }
+
     public void setIdCarrito(Long idCarrito) {
         this.idCarrito = idCarrito;
     }
 
-    public Long getIdUsuario() {
-        return idUsuario;
+    public Usuario getUsuario() {
+        return usuario_id;
     }
 
-    public void setIdUsuario(Long idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setUsuario(Usuario usuario) {
+        this.usuario_id = usuario;
     }
 
     public BigDecimal getPrecioTotal() {

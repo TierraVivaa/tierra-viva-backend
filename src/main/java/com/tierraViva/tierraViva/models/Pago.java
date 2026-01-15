@@ -1,6 +1,7 @@
 package com.tierraViva.tierraViva.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -14,10 +15,9 @@ public class Pago {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPago;
 
-    @OneToOne
-    @JoinColumn(name = "carrito_id", unique = true)
-    @JsonBackReference // Evita bucles
-    private Carrito carrito;
+    @OneToOne(mappedBy = "pago_id", cascade = CascadeType.ALL)
+    @JsonManagedReference // Evita bucles
+    private Carrito carrito_id;
 
     @Column(length = 30)
     private String metodoPago;
@@ -30,9 +30,9 @@ public class Pago {
     public Pago() {
     }
 
-    public Pago(Long idPago, Carrito carrito, String metodoPago, LocalDate fechaPago, BigDecimal monto) {
+    public Pago(Long idPago, Carrito carrito_id, String metodoPago, LocalDate fechaPago, BigDecimal monto) {
         this.idPago = idPago;
-        this.carrito = carrito;
+        this.carrito_id = carrito_id;
         this.metodoPago = metodoPago;
         this.fechaPago = fechaPago;
         this.monto = monto;
@@ -46,12 +46,12 @@ public class Pago {
         this.idPago = idPago;
     }
 
-    public Carrito getCarrito() {
-        return carrito;
+    public Carrito getCarrito_id() {
+        return carrito_id;
     }
 
-    public void setCarrito(Carrito carrito) {
-        this.carrito = carrito;
+    public void setCarrito_id(Carrito carrito_id) {
+        this.carrito_id = carrito_id;
     }
 
     public String getMetodoPago() {
