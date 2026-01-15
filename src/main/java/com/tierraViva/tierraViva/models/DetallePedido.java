@@ -16,12 +16,12 @@ public class DetallePedido {
 
     @ManyToOne
     @JoinColumn(name = "carrito_id")
-    @JsonBackReference
+    @JsonBackReference(value="carritoReference")
     private Carrito carrito;
 
     @ManyToOne
     @JoinColumn(name = "producto_id")
-    @JsonBackReference
+    @JsonBackReference(value="productoReference")
     private Producto producto;
 
     public DetallePedido() {

@@ -30,8 +30,6 @@ public class productoController {
 
     @PostMapping("/productos")
     public Producto crearProducto(@RequestBody Producto producto) {
-        System.out.println("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW");
-        System.out.println(producto);
         return productoService.crearProducto(producto);
     }
 

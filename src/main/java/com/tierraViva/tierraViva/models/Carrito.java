@@ -18,12 +18,12 @@ public class Carrito {
 
     @ManyToOne
     @JoinColumn(name = "usuario_id")
-    @JsonBackReference
+    @JsonBackReference(value = "usuarioReference")
     private Usuario usuario_id;
 
     @OneToOne
     @JoinColumn(name = "pago_id", unique = true)
-    @JsonBackReference
+    @JsonBackReference(value = "pagoReference")
     private Pago pago_id;
 
     @OneToMany(mappedBy = "carrito")

@@ -70,6 +70,6 @@ public class productoService implements IproductoService{
 
         producto.setCategoria(categoria);
 
-        return producto;
+        return productoRepository.save(producto);
     }
 }
