@@ -6,11 +6,11 @@ import java.util.List;
 
 @Entity
 @Table(name = "categorias")
-public class Categoria {
+public class Categoria    {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idCategoria;
+    private Long idCategoria;
 
     @Column(length = 50, nullable = false)
     private String nombre;
@@ -24,7 +24,7 @@ public class Categoria {
     public Categoria() {
     }
 
-    public Categoria(int idCategoria, String nombre, String descripcion, List<Producto> productos) {
+    public Categoria(Long idCategoria, String nombre, String descripcion, List<Producto> productos) {
         this.idCategoria = idCategoria;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -39,11 +39,11 @@ public class Categoria {
         this.productos = productos;
     }
 
-    public int getIdCategoria() {
+    public Long getIdCategoria() {
         return idCategoria;
     }
 
-    public void setIdCategoria(int idCategoria) {
+    public void setIdCategoria(Long idCategoria) {
         this.idCategoria = idCategoria;
     }
 
