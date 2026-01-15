@@ -1,5 +1,6 @@
 package com.tierraViva.tierraViva.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -8,23 +9,25 @@ public class DetallePedido {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idDetallePedido;
+    private Long idDetallePedido;
 
     @Column(nullable = false)
     private int cantidad;
 
     @ManyToOne
     @JoinColumn(name = "carrito_id")
+    @JsonBackReference(value="carritoReference")
     private Carrito carrito;
 
     @ManyToOne
     @JoinColumn(name = "producto_id")
+    @JsonBackReference(value="productoReference")
     private Producto producto;
 
     public DetallePedido() {
     }
 
-    public DetallePedido(int idDetallePedido, int cantidad, Carrito carrito, Producto producto) {
+    public DetallePedido(Long idDetallePedido, int cantidad, Carrito carrito, Producto producto) {
         this.idDetallePedido = idDetallePedido;
         this.cantidad = cantidad;
         this.carrito = carrito;
@@ -47,11 +50,11 @@ public class DetallePedido {
         this.producto = producto;
     }
 
-    public int getIdDetallePedido() {
+    public Long getIdDetallePedido() {
         return idDetallePedido;
     }
 
-    public void setIdDetallePedido(int idDetallePedido) {
+    public void setIdDetallePedido(Long idDetallePedido) {
         this.idDetallePedido = idDetallePedido;
     }
 

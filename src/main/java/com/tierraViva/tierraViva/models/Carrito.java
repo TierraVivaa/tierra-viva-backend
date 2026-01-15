@@ -18,15 +18,16 @@ public class Carrito {
 
     @ManyToOne
     @JoinColumn(name = "usuario_id")
-    @JsonBackReference // Evita bucles
+    @JsonBackReference(value = "usuarioReference")
     private Usuario usuario_id;
 
     @OneToOne
     @JoinColumn(name = "pago_id", unique = true)
-    @JsonBackReference // Evita bucles
+    @JsonBackReference(value = "pagoReference")
     private Pago pago_id;
 
     @OneToMany(mappedBy = "carrito")
+    @JsonManagedReference
     private List<DetallePedido> detallesPedido;
 
     @Column(name = "precioTotal", precision = 10, scale = 2)
