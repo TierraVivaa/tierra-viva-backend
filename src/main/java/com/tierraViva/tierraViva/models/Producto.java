@@ -36,6 +36,13 @@ public class Producto {
     @Column(name = "categoria_id")
     private Long idCategoria;
 
+    @ManyToOne
+    @JoinColumn(name = "id_categoria")
+    private Categoria categoria;
+    @OneToMany(mappedBy = "producto")
+    private List<DetallePedido> detalles;
+
+
     public Producto() {
 
     }

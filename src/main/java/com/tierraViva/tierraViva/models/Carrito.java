@@ -19,6 +19,10 @@ public class Carrito {
 
     private LocalDateTime fechaPedido;
 
+    @OneToMany(mappedBy = "carrito")
+    private List<DetallePedido> detalles;
+
+
     // Constructor vacío
     public Carrito() {
     }
