@@ -16,7 +16,7 @@ public class Pago {
     private Long idPago;
 
     @OneToOne(mappedBy = "pago_id", cascade = CascadeType.ALL)
-    @JsonManagedReference // Evita bucles
+    @JsonManagedReference
     private Carrito carrito_id;
 
     @Column(length = 30)

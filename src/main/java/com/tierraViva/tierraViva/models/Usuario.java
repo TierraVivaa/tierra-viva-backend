@@ -32,7 +32,7 @@ public class Usuario {
     private String contrasena;
 
     @OneToMany(mappedBy = "usuario_id", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference // Evita bucles
+    @JsonManagedReference
     private List<Carrito> carrito;
 
     public Usuario() {

@@ -13,5 +13,5 @@ public interface IproductoService {
     Producto crearProducto(Producto producto);
     void eliminarProducto(Long id);
 
-    void agregarCategoria(Long productoId, Long categoriaId);
+    Producto agregarCategoria(Long productoId, Long categoriaId);
 }
