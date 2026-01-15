@@ -1,4 +1,4 @@
-package com.tierraViva.tierraViva.controller;
+package com.tierraViva.tierraViva.controllers;
 
 import com.tierraViva.tierraViva.models.Usuario;
 import com.tierraViva.tierraViva.services.IusuarioService;

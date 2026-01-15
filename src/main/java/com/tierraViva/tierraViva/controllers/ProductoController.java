@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-public class productoController {
+public class ProductoController {
 
     private final IproductoService productoService;
 
-    public productoController(IproductoService productoService) {
+    public ProductoController(IproductoService productoService) {
         this.productoService = productoService;
     }
 

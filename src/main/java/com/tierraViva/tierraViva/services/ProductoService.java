@@ -11,11 +11,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class productoService implements IproductoService{
+public class ProductoService implements IproductoService{
     private final ProductoRepository productoRepository;
     private final CategoriaRepository categoriaRepository;
 
-    public productoService(ProductoRepository productoRepository, CategoriaRepository categoriaRepository) {
+    public ProductoService(ProductoRepository productoRepository, CategoriaRepository categoriaRepository) {
         this.productoRepository = productoRepository;
         this.categoriaRepository = categoriaRepository;
     }
