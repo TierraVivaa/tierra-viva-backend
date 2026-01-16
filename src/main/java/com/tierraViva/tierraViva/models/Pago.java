@@ -1,6 +1,5 @@
 package com.tierraViva.tierraViva.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
@@ -17,7 +16,7 @@ public class Pago {
 
     @OneToOne(mappedBy = "pago_id", cascade = CascadeType.ALL)
     @JsonManagedReference
-    private Carrito carrito_id;
+    private Carrito carritoPago;
 
     @Column(length = 30)
     private String metodoPago;
@@ -30,9 +29,9 @@ public class Pago {
     public Pago() {
     }
 
-    public Pago(Long idPago, Carrito carrito_id, String metodoPago, LocalDate fechaPago, BigDecimal monto) {
+    public Pago(Long idPago, Carrito carritoPago, String metodoPago, LocalDate fechaPago, BigDecimal monto) {
         this.idPago = idPago;
-        this.carrito_id = carrito_id;
+        this.carritoPago = carritoPago;
         this.metodoPago = metodoPago;
         this.fechaPago = fechaPago;
         this.monto = monto;
@@ -46,12 +45,12 @@ public class Pago {
         this.idPago = idPago;
     }
 
-    public Carrito getCarrito_id() {
-        return carrito_id;
+    public Carrito getCarritoPago() {
+        return carritoPago;
     }
 
-    public void setCarrito_id(Carrito carrito_id) {
-        this.carrito_id = carrito_id;
+    public void setCarritoPago(Carrito carritoPago) {
+        this.carritoPago = carritoPago;
     }
 
     public String getMetodoPago() {

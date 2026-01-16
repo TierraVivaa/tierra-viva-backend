@@ -31,7 +31,7 @@ public class Usuario {
     @Column(name = "contraseña")
     private String contrasena;
 
-    @OneToMany(mappedBy = "usuario_id", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "usuarioCarrito", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<Carrito> carrito;
 
