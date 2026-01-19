@@ -2,6 +2,7 @@ package com.tierraViva.tierraViva.services;
 
 import com.tierraViva.tierraViva.models.Usuario;
 import com.tierraViva.tierraViva.repositories.UsuariosRepository;
+import org.springframework.security.crypto.password.PasswordEncoder; // IMPORTANTE
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,9 +12,12 @@ import java.util.Optional;
 public class UsuarioService implements IusuarioService {
 
     private final UsuariosRepository usuariosRepository;
+    private final PasswordEncoder passwordEncoder; // Paso 1: Declarar el encriptador
 
-    public UsuarioService(UsuariosRepository usuariosRepository) {
+    // Paso 2: Agregarlo al constructor
+    public UsuarioService(UsuariosRepository usuariosRepository, PasswordEncoder passwordEncoder) {
         this.usuariosRepository = usuariosRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -28,6 +32,10 @@ public class UsuarioService implements IusuarioService {
 
     @Override
     public Usuario crearUsuario(Usuario usuario) {
+        // Paso 3: Encriptar la contraseña antes de guardar
+        String passwordEncriptada = passwordEncoder.encode(usuario.getContrasena());
+        usuario.setContrasena(passwordEncriptada);
+
         return usuariosRepository.save(usuario);
     }
 
