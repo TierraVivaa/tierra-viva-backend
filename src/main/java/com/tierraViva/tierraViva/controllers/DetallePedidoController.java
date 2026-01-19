@@ -16,19 +16,19 @@ public class DetallePedidoController {
         this.detallePedidoService = detallePedidoService;
     }
 
-    // GET ALL
+
     @GetMapping
     public List<DetallePedido> obtenerTodos() {
         return detallePedidoService.obtenerTodos();
     }
 
-    // GET BY ID
+
     @GetMapping("/{id}")
     public DetallePedido obtenerPorId(@PathVariable Long id) {
         return detallePedidoService.obtenerPorId(id).orElse(null);
     }
 
-    // CREATE
+
     @PostMapping
     public DetallePedido crearDetallePedido(
             @RequestParam Long idCarrito,
