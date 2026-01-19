@@ -22,7 +22,7 @@ public class ProductoController {
     }
 
     @GetMapping("/productos/{id}")
-    public Producto obtenerTodos(@PathVariable Long id) {
+    public Producto obtenerPorId(@PathVariable Long id) {
         return  productoService.obtenerPorId(id).orElseThrow(
                 () -> new RuntimeException("Producto no encontrado")
         );
@@ -50,7 +50,7 @@ public class ProductoController {
         return ResponseEntity.ok("Producto eliminado con éxito");
     }
 
-    @PostMapping("/productos/{productoId}/{categoriaId}")
+    @PostMapping("/productos/{productoId}/categorias/{categoriaId}")
     public Producto agregarCategoria(@PathVariable Long productoId, @PathVariable Long categoriaId) {
         return productoService.agregarCategoria(productoId, categoriaId);
     }
