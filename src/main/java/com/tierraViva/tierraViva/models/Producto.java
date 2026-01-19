@@ -1,6 +1,7 @@
 package com.tierraViva.tierraViva.models;
 
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -36,9 +37,11 @@ public class Producto {
 
     @ManyToOne
     @JoinColumn(name = "categoria_id")
+    @JsonBackReference
     private Categoria categoria;
 
     @OneToMany(mappedBy = "producto")
+    @JsonManagedReference
     private List<DetallePedido> detalles;
 
 

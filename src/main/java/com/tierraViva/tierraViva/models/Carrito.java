@@ -18,15 +18,16 @@ public class Carrito {
 
     @ManyToOne
     @JoinColumn(name = "usuario_id")
-    @JsonBackReference // Evita bucles
-    private Usuario usuario_id;
+    @JsonBackReference(value = "usuarioReference")
+    private Usuario usuarioCarrito;
 
     @OneToOne
     @JoinColumn(name = "pago_id", unique = true)
-    @JsonBackReference // Evita bucles
-    private Pago pago_id;
+    @JsonBackReference(value = "pagoReference")
+    private Pago pagoCarrito;
 
     @OneToMany(mappedBy = "carrito")
+    @JsonManagedReference
     private List<DetallePedido> detallesPedido;
 
     @Column(name = "precioTotal", precision = 10, scale = 2)
@@ -39,10 +40,10 @@ public class Carrito {
     }
 
     // Constructor con parámetros
-    public Carrito(Long idCarrito, Usuario usuario_id, Pago pago_id, List<DetallePedido> detallesPedido, BigDecimal precioTotal, LocalDateTime fechaPedido) {
+    public Carrito(Long idCarrito, Usuario usuarioCarrito, Pago pagoCarrito, List<DetallePedido> detallesPedido, BigDecimal precioTotal, LocalDateTime fechaPedido) {
         this.idCarrito = idCarrito;
-        this.usuario_id = usuario_id;
-        this.pago_id = pago_id;
+        this.usuarioCarrito = usuarioCarrito;
+        this.pagoCarrito = pagoCarrito;
         this.detallesPedido = detallesPedido;
         this.precioTotal = precioTotal;
         this.fechaPedido = fechaPedido;
@@ -53,20 +54,12 @@ public class Carrito {
         return idCarrito;
     }
 
-    public Usuario getUsuario_id() {
-        return usuario_id;
+    public Pago getPagoCarrito() {
+        return pagoCarrito;
     }
 
-    public void setUsuario_id(Usuario usuario_id) {
-        this.usuario_id = usuario_id;
-    }
-
-    public Pago getPago_id() {
-        return pago_id;
-    }
-
-    public void setPago_id(Pago pago_id) {
-        this.pago_id = pago_id;
+    public void setPagoCarrito(Pago pagoCarrito) {
+        this.pagoCarrito = pagoCarrito;
     }
 
     public List<DetallePedido> getDetallesPedido() {
@@ -81,12 +74,12 @@ public class Carrito {
         this.idCarrito = idCarrito;
     }
 
-    public Usuario getUsuario() {
-        return usuario_id;
+    public Usuario getUsuarioCarrito() {
+        return usuarioCarrito;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario_id = usuario;
+    public void setUsuarioCarrito(Usuario usuarioCarrito) {
+        this.usuarioCarrito = usuarioCarrito;
     }
 
     public BigDecimal getPrecioTotal() {

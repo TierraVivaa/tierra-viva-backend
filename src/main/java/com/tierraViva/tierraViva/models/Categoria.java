@@ -1,5 +1,7 @@
 package com.tierraViva.tierraViva.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -19,6 +21,7 @@ public class Categoria    {
     private String descripcion;
 
     @OneToMany(mappedBy = "categoria")
+    @JsonManagedReference
     private List<Producto> productos;
 
     public Categoria() {

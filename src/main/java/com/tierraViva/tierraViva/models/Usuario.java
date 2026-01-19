@@ -13,7 +13,7 @@ public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idUsuarios;
+    private Long idUsuario;
 
     @Column(length = 50, nullable = false)
     private String nombre;
@@ -31,15 +31,15 @@ public class Usuario {
     @Column(name = "contraseña")
     private String contrasena;
 
-    @OneToMany(mappedBy = "usuario_id", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference // Evita bucles
+    @OneToMany(mappedBy = "usuarioCarrito", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Carrito> carrito;
 
     public Usuario() {
     }
 
-    public Usuario(Long idUsuarios, String nombre, String usuario, String email, Long numeroCelular, String contrasena, List<Carrito> carrito) {
-        this.idUsuarios = idUsuarios;
+    public Usuario(Long idUsuario, String nombre, String usuario, String email, Long numeroCelular, String contrasena, List<Carrito> carrito) {
+        this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.usuario = usuario;
         this.email = email;
@@ -56,12 +56,12 @@ public class Usuario {
         this.carrito = carrito;
     }
 
-    public Long getIdUsuarios() {
-        return idUsuarios;
+    public Long getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setIdUsuarios(Long idUsuarios) {
-        this.idUsuarios = idUsuarios;
+    public void setIdUsuario(Long idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     public String getNombre() {
