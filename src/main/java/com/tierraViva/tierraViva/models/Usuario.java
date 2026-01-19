@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-
 import java.util.List;
 
 @Entity
@@ -13,7 +12,7 @@ public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idUsuario;
+    private Long idUsuarios;
 
     @Column(length = 50, nullable = false)
     private String nombre;
@@ -25,6 +24,7 @@ public class Usuario {
     @Column(length = 50, nullable = false)
     private String email;
 
+    @Column(name = "numeroCelular")
     private Long numeroCelular;
 
     @NotBlank
@@ -35,11 +35,12 @@ public class Usuario {
     @JsonManagedReference
     private List<Carrito> carrito;
 
+    // --- CONSTRUCTORES ---
     public Usuario() {
     }
 
-    public Usuario(Long idUsuario, String nombre, String usuario, String email, Long numeroCelular, String contrasena, List<Carrito> carrito) {
-        this.idUsuario = idUsuario;
+    public Usuario(Long idUsuarios, String nombre, String usuario, String email, Long numeroCelular, String contrasena, List<Carrito> carrito) {
+        this.idUsuarios = idUsuarios;
         this.nombre = nombre;
         this.usuario = usuario;
         this.email = email;
@@ -48,59 +49,25 @@ public class Usuario {
         this.carrito = carrito;
     }
 
-    public List<Carrito> getCarrito() {
-        return carrito;
-    }
+    // --- GETTERS Y SETTERS ---
+    public Long getIdUsuarios() { return idUsuarios; }
+    public void setIdUsuarios(Long idUsuarios) { this.idUsuarios = idUsuarios; }
 
-    public void setCarrito(List<Carrito> carrito) {
-        this.carrito = carrito;
-    }
+    public String getNombre() { return nombre; }
+    public void setNombre(String nombre) { this.nombre = nombre; }
 
-    public Long getIdUsuario() {
-        return idUsuario;
-    }
+    public String getUsuario() { return usuario; }
+    public void setUsuario(String usuario) { this.usuario = usuario; }
 
-    public void setIdUsuario(Long idUsuario) {
-        this.idUsuario = idUsuario;
-    }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
 
-    public String getNombre() {
-        return nombre;
-    }
+    public Long getNumeroCelular() { return numeroCelular; }
+    public void setNumeroCelular(Long numeroCelular) { this.numeroCelular = numeroCelular; }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+    public String getContrasena() { return contrasena; }
+    public void setContrasena(String contrasena) { this.contrasena = contrasena; }
 
-    public String getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Long getNumeroCelular() {
-        return numeroCelular;
-    }
-
-    public void setNumeroCelular(Long numeroCelular) {
-        this.numeroCelular = numeroCelular;
-    }
-
-    public String getContrasena() {
-        return contrasena;
-    }
-
-    public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
-    }
+    public List<Carrito> getCarrito() { return carrito; }
+    public void setCarrito(List<Carrito> carrito) { this.carrito = carrito; }
 }
