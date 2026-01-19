@@ -18,3 +18,4 @@ public interface IdetallePedidoService {
     Optional<DetallePedido> obtenerPorId(Long id);
     DetallePedido crearDetallePedido(Long idCarrito, Long idProducto, int cantidad);
 }
+
