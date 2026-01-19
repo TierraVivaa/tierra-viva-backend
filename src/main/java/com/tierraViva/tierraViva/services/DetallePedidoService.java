@@ -61,7 +61,7 @@ public class DetallePedidoService implements IdetallePedidoService {
         return Optional.of(detalle);
     }
 
-
+//transaccion
     @Transactional
     @Override
     public DetallePedido crearDetallePedido(Long idCarrito, Long idProducto, int cantidad) {
