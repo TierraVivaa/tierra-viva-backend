@@ -14,7 +14,8 @@ public class Pago {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPago;
 
-    @OneToOne(mappedBy = "pago_id", cascade = CascadeType.ALL)
+
+    @OneToOne(mappedBy = "pagoCarrito", cascade = CascadeType.ALL)
     @JsonManagedReference
     private Carrito carritoPago;
 

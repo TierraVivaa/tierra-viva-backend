@@ -46,8 +46,19 @@ public class ProductoService implements IproductoService{
 
     @Override
     public Producto crearProducto(Producto producto) {
+
+        if (producto.getCategoria() != null && producto.getCategoria().getIdCategoria() != null) {
+
+            Categoria categoria = categoriaRepository
+                    .findById(producto.getCategoria().getIdCategoria())
+                    .orElseThrow(() -> new RuntimeException("Categoría no encontrada"));
+
+            producto.setCategoria(categoria);
+        }
+
         return productoRepository.save(producto);
     }
+
 
     @Override
     public void eliminarProducto(Long id) {

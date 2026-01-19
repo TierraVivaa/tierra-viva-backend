@@ -32,7 +32,8 @@ public class Producto {
 
     private Integer stock;
 
-    @Column(length = 50)
+    @Lob
+    @Column(columnDefinition = "LONGTEXT")
     private String imagen;
 
     @ManyToOne
