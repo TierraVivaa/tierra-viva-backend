@@ -5,7 +5,6 @@ import com.tierraViva.tierraViva.services.IcarritoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
 @RestController
 public class CarritoController {
     private final IcarritoService carritoService;
@@ -39,7 +38,7 @@ public class CarritoController {
     }
 
     @PostMapping("/carritos/{idCarrito}/usuarios/{idUsuario}")
-    public Carrito agregarUsuario(@PathVariable Long idCarrito, @PathVariable Long idUsurio) {
-        return carritoService.asignarUsuario(idCarrito, idUsurio);
+    public Carrito agregarUsuario(@PathVariable Long idCarrito, @PathVariable Long idUsuario) {
+        return carritoService.asignarUsuario(idCarrito, idUsuario);
     }
 }

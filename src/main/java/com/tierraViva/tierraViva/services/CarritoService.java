@@ -12,12 +12,10 @@ public class CarritoService implements IcarritoService {
 
     private final CarritoRepository carritoRepository;
     private final IusuarioService usuarioService;
-    private final IcarritoService carritoService;
 
-    public CarritoService(CarritoRepository carritoRepository, IusuarioService usuarioService, IcarritoService carritoService) {
+    public CarritoService(CarritoRepository carritoRepository, IusuarioService usuarioService) {
         this.carritoRepository = carritoRepository;
         this.usuarioService = usuarioService;
-        this.carritoService = carritoService;
     }
 
     @Override
@@ -41,7 +39,7 @@ public class CarritoService implements IcarritoService {
                 () -> new RuntimeException("Usuario no encontrado")
         );
 
-        Carrito carrito = carritoService.obtenerPorId(idCarrito).orElseThrow(
+        Carrito carrito = obtenerPorId(idCarrito).orElseThrow(
                 () -> new RuntimeException("Carrito no encontrado")
         );
 
