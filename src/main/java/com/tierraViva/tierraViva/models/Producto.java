@@ -1,6 +1,7 @@
 package com.tierraViva.tierraViva.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
@@ -36,7 +37,7 @@ public class Producto {
 
     @ManyToOne
     @JoinColumn(name = "categoria_id")
-    @JsonBackReference
+    @JsonIgnoreProperties("productos")
     private Categoria categoria;
 
     @OneToMany(mappedBy = "producto")
