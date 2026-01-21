@@ -32,7 +32,6 @@ public class Producto {
 
     private Integer stock;
 
-    @Column(length = 50)
     private String imagen;
 
     @ManyToOne
