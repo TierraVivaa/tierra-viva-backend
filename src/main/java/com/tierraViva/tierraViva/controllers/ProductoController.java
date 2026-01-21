@@ -1,19 +1,32 @@
 package com.tierraViva.tierraViva.controllers;
 
+import com.tierraViva.tierraViva.models.Categoria;
 import com.tierraViva.tierraViva.models.Producto;
+import com.tierraViva.tierraViva.services.IcategoriaService;
 import com.tierraViva.tierraViva.services.IproductoService;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 public class ProductoController {
 
     private final IproductoService productoService;
+    private final IcategoriaService categoriaService;
 
-    public ProductoController(IproductoService productoService) {
+    public ProductoController(IproductoService productoService, IcategoriaService categoriaService) {
         this.productoService = productoService;
+        this.categoriaService = categoriaService;
     }
 
     @GetMapping("/productos")
@@ -28,20 +41,50 @@ public class ProductoController {
         );
     }
 
-    @PostMapping("/productos")
-    public Producto crearProducto(@RequestBody Producto producto) {
+    @PostMapping(value = "/productos", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> crearProducto(
+            @RequestParam String nombre,
+            @RequestParam String descripcion,
+            @RequestParam String fechaVencimiento,
+            @RequestParam BigDecimal precioUnitario,
+            @RequestParam String unidadDePeso,
+            @RequestParam Integer stock,
+            @RequestParam("imagen") MultipartFile imagen,
+            @RequestParam Long idCategoria
+    ) throws IOException {
 
-        /*{
-            "nombre": "platano",
-                "descripcion": "platano maduro muy rico",
-                "fechaVencimiento": "2012-04-23",
-                "precioUnitario" : "234.2",
-                "unidadDePeso" : "gramos",
-                "stock" : 2,
-                "imagen" : "https://imageneseonline.com/platano"
-        }*/
+        if (!imagen.getContentType().startsWith("image/")) {
+            throw new IllegalArgumentException("El archivo no es una imagen");
+        }
 
-        return productoService.crearProducto(producto);
+        // 10 MB
+        if (imagen.getSize() > 10 * 1024 * 1024) {
+            throw new IllegalArgumentException("Imagen demasiado grande");
+        }
+
+        // Guardar imagen
+        String nombreArchivo = UUID.randomUUID() + "_" + imagen.getOriginalFilename();
+        Path ruta = Paths.get("uploads/" + nombreArchivo);
+        Files.createDirectories(ruta.getParent());
+        Files.copy(imagen.getInputStream(), ruta);
+
+        Producto producto = new Producto();
+        producto.setNombre(nombre);
+        producto.setDescripcion(descripcion);
+        producto.setFechaVencimiento(LocalDate.parse(fechaVencimiento));
+        producto.setPrecioUnitario(precioUnitario);
+        producto.setUnidadDePeso(unidadDePeso);
+        producto.setStock(stock);
+        producto.setImagen("/uploads/" + nombreArchivo);
+
+        Categoria categoria = categoriaService.obtenerPorId(idCategoria).orElseThrow(
+                () -> new RuntimeException("Categoria no encontrada")
+        );
+        producto.setCategoria(categoria);
+
+        productoService.crearProducto(producto);
+
+        return ResponseEntity.ok(producto);
     }
 
     @DeleteMapping("/productos/{id}")
