@@ -97,4 +97,9 @@ public class Carrito {
     public void setFechaPedido(LocalDateTime fechaPedido) {
         this.fechaPedido = fechaPedido;
     }
+
+    @Transient
+    public BigDecimal getTotal() {
+        return precioTotal != null ? precioTotal : BigDecimal.ZERO;
+    }
 }

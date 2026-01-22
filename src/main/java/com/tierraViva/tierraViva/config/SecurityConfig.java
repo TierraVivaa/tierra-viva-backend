@@ -1,4 +1,4 @@
-package com.tierraViva.tierraViva;
+package com.tierraViva.tierraViva.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,9 +14,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
 
-import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -24,41 +23,54 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
         http
-                .cors(cors -> cors.configurationSource(corsConfigurationSource())) // ← CORS PRIMERO
-                .csrf(csrf -> csrf.disable()) // Desactivamos CSRF para poder usar Postman
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Sin sesiones (JWT)
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                .csrf(csrf -> csrf.disable())
+                .sessionManagement(session ->
+                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
                 .authorizeHttpRequests(auth -> auth
-                        // Permitimos el registro de usuarios y el login (cuando lo crees) sin token
-                        .requestMatchers(HttpMethod.POST, "/usuarios/**", "/productos/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/login").permitAll()
-                        // Cualquier otra petición requerirá autenticación
-                        .anyRequest().authenticated()
+
+                        // ===== PUBLICOS =====
+                        .requestMatchers("/api/pago/webhook").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/pagos/mercadopago/**").permitAll()
+
+                        // CRUD básicos (opcional)
+                        .requestMatchers("/usuarios/**").permitAll()
+                        .requestMatchers("/productos/**").permitAll()
+                        .requestMatchers("/pagos/**").permitAll()
+                        .requestMatchers("/carritos/**").permitAll()
+
+                        // ===== TODO LO DEMÁS =====
+                        .anyRequest().permitAll()
                 );
 
         return http.build();
     }
+
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOriginPatterns(Arrays.asList("http://127.0.0.1:*", "http://localhost:*"));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList("*"));
-        configuration.setAllowCredentials(true);
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowedOriginPatterns(List.of("*"));
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedHeaders(List.of("*"));
+        config.setAllowCredentials(false);
+
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
+        source.registerCorsConfiguration("/**", config);
         return source;
     }
 
-    // Este Bean es el que usará tu UsuarioService para encriptar la clave
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    // Este Bean es necesario para el proceso de Login más adelante
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+    public AuthenticationManager authenticationManager(
+            AuthenticationConfiguration config
+    ) throws Exception {
         return config.getAuthenticationManager();
     }
 }

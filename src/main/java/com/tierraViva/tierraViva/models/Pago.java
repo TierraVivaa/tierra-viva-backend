@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "pagos")
@@ -25,6 +26,20 @@ public class Pago {
 
     @Column(name = "monto", precision = 10, scale = 2)
     private BigDecimal monto;
+
+    // MERCADO PAGO
+
+    @Column(name = "estado_pago")
+    private String estadoPago;
+    // PENDIENTE, APROBADO, RECHAZADO
+
+    @Column(name = "mp_preference_id", length = 50)
+    private String mpPreferenceId;
+
+    @Column(name = "mp_payment_id")
+    private String mpPaymentId;
+
+    private LocalDateTime fechaCreacion;
 
     public Pago() {
     }
@@ -75,5 +90,37 @@ public class Pago {
 
     public void setMonto(BigDecimal monto) {
         this.monto = monto;
+    }
+
+    public String getEstadoPago() {
+        return estadoPago;
+    }
+
+    public void setEstadoPago(String estadoPago) {
+        this.estadoPago = estadoPago;
+    }
+
+    public String getMpPreferenceId() {
+        return mpPreferenceId;
+    }
+
+    public void setMpPreferenceId(String mpPreferenceId) {
+        this.mpPreferenceId = mpPreferenceId;
+    }
+
+    public String getMpPaymentId() {
+        return mpPaymentId;
+    }
+
+    public void setMpPaymentId(String mpPaymentId) {
+        this.mpPaymentId = mpPaymentId;
+    }
+
+    public LocalDateTime getFechaCreacion() {
+        return fechaCreacion;
+    }
+
+    public void setFechaCreacion(LocalDateTime fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
     }
 }
