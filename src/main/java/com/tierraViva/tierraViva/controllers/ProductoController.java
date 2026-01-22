@@ -14,6 +14,7 @@ import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
@@ -62,11 +63,11 @@ public class ProductoController {
             throw new IllegalArgumentException("Imagen demasiado grande");
         }
 
-        // Guardar imagen
+        // Guardamos la imagen en el server
         String nombreArchivo = UUID.randomUUID() + "_" + imagen.getOriginalFilename();
-        Path ruta = Paths.get("uploads/" + nombreArchivo);
+        Path ruta = Paths.get("uploads", "images", nombreArchivo);
         Files.createDirectories(ruta.getParent());
-        Files.copy(imagen.getInputStream(), ruta);
+        Files.copy(imagen.getInputStream(), ruta, StandardCopyOption.REPLACE_EXISTING);
 
         Producto producto = new Producto();
         producto.setNombre(nombre);
@@ -75,7 +76,7 @@ public class ProductoController {
         producto.setPrecioUnitario(precioUnitario);
         producto.setUnidadDePeso(unidadDePeso);
         producto.setStock(stock);
-        producto.setImagen("/uploads/" + nombreArchivo);
+        producto.setImagen("http://localhost:8080/images/" + nombreArchivo); // La ruta apunta al server
 
         Categoria categoria = categoriaService.obtenerPorId(idCategoria).orElseThrow(
                 () -> new RuntimeException("Categoria no encontrada")
