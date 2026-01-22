@@ -30,7 +30,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         // Permitimos el registro de usuarios y el login (cuando lo crees) sin token
                         .requestMatchers(HttpMethod.GET, "/usuarios/**", "/productos/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/usuarios/**", "/productos/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/usuarios/**", "/productos/**", "/auth/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/login").permitAll()
                         // Cualquier otra petición requerirá autenticación
                         .anyRequest().authenticated()
