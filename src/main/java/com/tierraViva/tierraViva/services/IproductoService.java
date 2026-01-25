@@ -12,6 +12,6 @@ public interface IproductoService {
     Optional<Producto> obtenerPorId(Long id);
     Producto crearProducto(Producto producto);
     void eliminarProducto(Long id);
-
+    Producto actualizarProducto(Producto producto);
     Producto agregarCategoria(Long productoId, Long categoriaId);
 }

@@ -88,6 +88,77 @@ public class ProductoController {
         return ResponseEntity.ok(producto);
     }
 
+    @PutMapping(value = "/productos/editar/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> actualizarProducto(
+            @PathVariable Long id,
+            @RequestParam String nombre,
+            @RequestParam String descripcion,
+            @RequestParam String fechaVencimiento,
+            @RequestParam BigDecimal precioUnitario,
+            @RequestParam String unidadDePeso,
+            @RequestParam Integer stock,
+            @RequestParam(required = false) MultipartFile imagen,
+            @RequestParam Long idCategoria
+    ) throws IOException {
+
+        // Buscar el producto existente
+        Producto producto = productoService.obtenerPorId(id)
+                .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+
+        // Actualizar campos
+        producto.setNombre(nombre);
+        producto.setDescripcion(descripcion);
+        producto.setFechaVencimiento(LocalDate.parse(fechaVencimiento));
+        producto.setPrecioUnitario(precioUnitario);
+        producto.setUnidadDePeso(unidadDePeso);
+        producto.setStock(stock);
+
+        // Solo actualizar imagen si se proporciona una nueva
+        if (imagen != null && !imagen.isEmpty()) {
+            if (!imagen.getContentType().startsWith("image/")) {
+                throw new IllegalArgumentException("El archivo no es una imagen");
+            }
+
+            // 10 MB
+            if (imagen.getSize() > 10 * 1024 * 1024) {
+                throw new IllegalArgumentException("Imagen demasiado grande");
+            }
+
+            // Eliminar imagen anterior si existe
+            String imagenAnterior = producto.getImagen();
+            if (imagenAnterior != null && !imagenAnterior.isEmpty()) {
+                try {
+                    String nombreArchivoAnterior = imagenAnterior.substring(imagenAnterior.lastIndexOf("/") + 1);
+                    Path rutaAnterior = Paths.get("uploads", "images", nombreArchivoAnterior);
+                    Files.deleteIfExists(rutaAnterior);
+                } catch (Exception e) {
+                    // Log pero no fallar si no se puede eliminar
+                    System.err.println("No se pudo eliminar la imagen anterior: " + e.getMessage());
+                }
+            }
+
+            // Guardar nueva imagen
+            String nombreArchivo = UUID.randomUUID() + "_" + imagen.getOriginalFilename();
+            Path ruta = Paths.get("uploads", "images", nombreArchivo);
+            Files.createDirectories(ruta.getParent());
+            Files.copy(imagen.getInputStream(), ruta, StandardCopyOption.REPLACE_EXISTING);
+
+            producto.setImagen("http://localhost:8080/images/" + nombreArchivo);
+        }
+
+        // Actualizar categoría
+        Categoria categoria = categoriaService.obtenerPorId(idCategoria)
+                .orElseThrow(() -> new RuntimeException("Categoria no encontrada"));
+        producto.setCategoria(categoria);
+
+        // Guardar cambios
+        productoService.actualizarProducto(producto);
+
+        return ResponseEntity.ok(producto);
+    }
+
+
+
     @DeleteMapping("/productos/{id}")
     public ResponseEntity<String> eliminarProducto(@PathVariable Long id){
         productoService.eliminarProducto(id);

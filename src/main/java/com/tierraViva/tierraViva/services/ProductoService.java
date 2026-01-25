@@ -60,6 +60,21 @@ public class ProductoService implements IproductoService{
     }
 
     @Override
+    public Producto actualizarProducto(Producto producto) {
+        // Verificar que el producto existe
+        if (producto.getIdProducto() == null) {
+            throw new IllegalArgumentException("El ID del producto no puede ser nulo para actualizar");
+        }
+
+        if (!productoRepository.existsById(producto.getIdProducto())) {
+            throw new RuntimeException("Producto no encontrado con ID: " + producto.getIdProducto());
+        }
+
+        // Guardar y retornar el producto actualizado
+        return productoRepository.save(producto);
+    }
+
+    @Override
     public void eliminarProducto(Long id) {
         Producto producto = productoRepository.findById(id).orElseThrow(
                 () -> new RuntimeException("Producto no encontrado")
