@@ -29,16 +29,15 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Sin sesiones (JWT)
                 .authorizeHttpRequests(auth -> auth
                         // Permitimos el registro de usuarios y el login (cuando lo crees) sin token
-                        .requestMatchers("/productos/**").permitAll()
                         .requestMatchers(
                                 HttpMethod.GET,
-                                "/usuarios/**",
                                 "/api/categorias/**"
                         ).permitAll()
                         .requestMatchers(HttpMethod.POST,
-                                "/usuarios/**",
                                 "/auth/loginConDTO"
                              ).permitAll()
+                        .requestMatchers(HttpMethod.GET, "/usuarios/**", "/productos/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/usuarios/**", "/productos/**", "/auth/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/login").permitAll()
 
                         // Cualquier otra petición requerirá autenticación

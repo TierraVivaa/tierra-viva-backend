@@ -2,29 +2,36 @@ package com.tierraViva.tierraViva.intialdata;
 
 import com.tierraViva.tierraViva.models.Categoria;
 import com.tierraViva.tierraViva.models.Producto;
+import com.tierraViva.tierraViva.models.Usuario;
 import com.tierraViva.tierraViva.repositories.CategoriaRepository;
 import com.tierraViva.tierraViva.repositories.ProductoRepository;
+import com.tierraViva.tierraViva.repositories.UsuariosRepository;
+import com.tierraViva.tierraViva.services.UsuarioService;
 import jakarta.persistence.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
 
 @Component
 public class DataLoader implements CommandLineRunner {
     private final CategoriaRepository categoriaRepository;
     private final ProductoRepository productoRepository;
+    private final UsuariosRepository usuariosRepository;
+    private final UsuarioService usuarioServices;
 
-    public DataLoader(CategoriaRepository categoriaRepository, ProductoRepository productoRepository) {
+    public DataLoader(CategoriaRepository categoriaRepository, ProductoRepository productoRepository, UsuariosRepository usuariosRepository, UsuarioService usuarioServices) {
         this.categoriaRepository = categoriaRepository;
         this.productoRepository = productoRepository;
+        this.usuariosRepository = usuariosRepository;
+        this.usuarioServices = usuarioServices;
     }
 
     @Override
     public void run(String... args) throws Exception {
-        // Load initial data into the database
+        // Cargamos datos inciales en la base de datos
+        // Categorias, productos y usuarios
 
         // CATEGORIAS
         if (categoriaRepository.count() == 0) {
@@ -171,6 +178,18 @@ public class DataLoader implements CommandLineRunner {
                 producto10.setCategoria(vegetales);
                 productoRepository.save(producto10);
             }
+        }
+
+        // USUARIOS
+        if(usuariosRepository.count() == 0) {
+            Usuario usuario = new Usuario();
+            usuario.setNombre("Usuario Prueba");
+            usuario.setUsuario("user");
+            usuario.setEmail("user@correo.com");
+            usuario.setNumeroCelular(3213332244L);
+            usuario.setContrasena("user1234");
+
+            usuarioServices.crearUsuario(usuario);
         }
     }
 }
