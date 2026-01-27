@@ -71,7 +71,7 @@ public class DataLoader implements CommandLineRunner {
                 Producto producto1 = new Producto();
                 producto1.setNombre("Banano");
                 producto1.setDescripcion("Banano fresco de alta calidad.");
-                producto1.setFechaVencimiento(LocalDate.parse("2025-12-20"));
+                producto1.setFechaVencimiento(LocalDate.parse("2026-12-20"));
                 producto1.setImagen("../assets/images/CatalogoProducto/banano.jpg");
                 producto1.setPrecioUnitario(new BigDecimal("3200.00"));
                 producto1.setStock(120);
@@ -93,7 +93,7 @@ public class DataLoader implements CommandLineRunner {
                 Producto producto3 = new Producto();
                 producto3.setNombre("Cebolla Cabezona");
                 producto3.setDescripcion("Cebolla cabezona fresca ideal para cocinar.");
-                producto3.setFechaVencimiento(LocalDate.parse("2025-12-10"));
+                producto3.setFechaVencimiento(LocalDate.parse("2026-12-10"));
                 producto3.setImagen("../assets/images/CatalogoProducto/cebolla_cabezona.jpg");
                 producto3.setPrecioUnitario(new BigDecimal("2200.00"));
                 producto3.setStock(180);
@@ -104,7 +104,7 @@ public class DataLoader implements CommandLineRunner {
                 Producto producto4 = new Producto();
                 producto4.setNombre("Fresas");
                 producto4.setDescripcion("Fresas rojas dulces y frescas.");
-                producto4.setFechaVencimiento(LocalDate.parse("2025-12-08"));
+                producto4.setFechaVencimiento(LocalDate.parse("2026-12-08"));
                 producto4.setImagen("../assets/images/CatalogoProducto/fresas.jpg");
                 producto4.setPrecioUnitario(new BigDecimal("8500.00"));
                 producto4.setStock(35);
@@ -126,7 +126,7 @@ public class DataLoader implements CommandLineRunner {
                 Producto producto6 = new Producto();
                 producto6.setNombre("Papa Pastusa");
                 producto6.setDescripcion("Papa pastusa fresca ideal para cocinar.");
-                producto6.setFechaVencimiento(LocalDate.parse("2025-12-15"));
+                producto6.setFechaVencimiento(LocalDate.parse("2026-12-15"));
                 producto6.setImagen("../assets/images/CatalogoProducto/papa.jpg");
                 producto6.setPrecioUnitario(new BigDecimal("1800.00"));
                 producto6.setStock(250);
@@ -137,7 +137,7 @@ public class DataLoader implements CommandLineRunner {
                 Producto producto7 = new Producto();
                 producto7.setNombre("Papaya");
                 producto7.setDescripcion("Papaya dulce lista para consumir.");
-                producto7.setFechaVencimiento(LocalDate.parse("2025-12-12"));
+                producto7.setFechaVencimiento(LocalDate.parse("2026-12-12"));
                 producto7.setImagen("../assets/images/CatalogoProducto/papaya.jpg");
                 producto7.setPrecioUnitario(new BigDecimal("3500.00"));
                 producto7.setStock(45);
@@ -148,7 +148,7 @@ public class DataLoader implements CommandLineRunner {
                 Producto producto8 = new Producto();
                 producto8.setNombre("Tomate Chonto");
                 producto8.setDescripcion("Tomate fresco ideal para ensaladas y cocina.");
-                producto8.setFechaVencimiento(LocalDate.parse("2025-12-08"));
+                producto8.setFechaVencimiento(LocalDate.parse("2026-12-08"));
                 producto8.setImagen("../assets/images/CatalogoProducto/tomate.jpg");
                 producto8.setPrecioUnitario(new BigDecimal("2700.00"));
                 producto8.setStock(110);
@@ -159,7 +159,7 @@ public class DataLoader implements CommandLineRunner {
                 Producto producto9 = new Producto();
                 producto9.setNombre("Yuca");
                 producto9.setDescripcion("Yuca fresca de excelente calidad.");
-                producto9.setFechaVencimiento(LocalDate.parse("2025-12-16"));
+                producto9.setFechaVencimiento(LocalDate.parse("2026-12-16"));
                 producto9.setImagen("../assets/images/CatalogoProducto/yuca.jpg");
                 producto9.setPrecioUnitario(new BigDecimal("1700.00"));
                 producto9.setStock(95);
@@ -170,7 +170,7 @@ public class DataLoader implements CommandLineRunner {
                 Producto producto10 = new Producto();
                 producto10.setNombre("Zanahoria");
                 producto10.setDescripcion("Zanahoria fresca y crujiente.");
-                producto10.setFechaVencimiento(LocalDate.parse("2025-12-18"));
+                producto10.setFechaVencimiento(LocalDate.parse("2026-12-18"));
                 producto10.setImagen("../assets/images/CatalogoProducto/zanahoria.jpg");
                 producto10.setPrecioUnitario(new BigDecimal("1500.00"));
                 producto10.setStock(160);
@@ -183,11 +183,11 @@ public class DataLoader implements CommandLineRunner {
         // USUARIOS
         if(usuariosRepository.count() == 0) {
             Usuario usuario = new Usuario();
-            usuario.setNombre("Usuario Prueba");
-            usuario.setUsuario("user");
-            usuario.setEmail("user@correo.com");
-            usuario.setNumeroCelular(3213332244L);
-            usuario.setContrasena("user1234");
+            usuario.setNombre("Usuario Administrador");
+            usuario.setUsuario("Admin1234");
+            usuario.setEmail("admin@correo.com");
+            usuario.setNumeroCelular(3214983422L);
+            usuario.setContrasena("admin");
 
             usuarioServices.crearUsuario(usuario);
         }
